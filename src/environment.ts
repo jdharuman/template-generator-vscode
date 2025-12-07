@@ -17,6 +17,8 @@ export class Fields {
     private _snakeCaseName: string;
     private _kebabCaseName: string;
     private _lowerDotCaseName: string;
+    private _namespaceStart: string;
+    private _namespaceEnd: string;
 
     public get name() {
         return this._name;
@@ -50,6 +52,36 @@ export class Fields {
         return this.snakeCaseName.replace(/_/g, '.');
     }
 
+    @once('_fileNamePrefix')
+    public get fileNamePrefix() {
+        return this._name;
+    }
+
+    @once('_fileNamePrefixSnakeUpper')
+    public get fileNamePrefixSnakeUpper() {
+        return this.snakeCaseName.toUpperCase();
+    }
+
+    @once('_namespaceStart')
+    public get namespaceStart() {
+        return this._namespaceStart || this.snakeCaseName;
+    }
+
+    @once('_namespaceEnd')
+    public get namespaceEnd() {
+        return this._namespaceEnd || this.snakeCaseName;
+    }
+
+    @once('_moduleNamePascal')
+    public get moduleNamePascal() {
+        return this.pascalCaseName;
+    }
+
+    @once('_cppInheritInterface')
+    public get cppInheritInterface() {
+        return `: public ${this.pascalCaseName}I`;
+    }
+
     public set name(name: string) {
         this._name = name;
         this._camelCaseName = null;
@@ -57,6 +89,11 @@ export class Fields {
         this._snakeCaseName = null;
         this._kebabCaseName = null;
         this._lowerDotCaseName = null;
+    }
+
+    public set namespace(namespace: string) {
+        this._namespaceStart = namespace;
+        this._namespaceEnd = namespace;
     }
 
     public get date() {
@@ -90,7 +127,7 @@ export class Environment {
     }
 
     public get templatesFolderPath(): string {
-        const configPath = this.config.get<string>('templatesPath') || path.join(os.homedir(), '.vscode/templates');
+        const configPath = this.config.get<string>('templatesPath') || path.join(os.homedir(), '.vscode/oadl_templates');
 
         if (!path.isAbsolute(configPath) && this.workspaceRoot) {
             return path.join(this.workspaceRoot, configPath)

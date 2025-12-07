@@ -36,7 +36,7 @@ export class Template implements vscode.QuickPickItem {
 
     @once()
     public get templateName(): string {
-        return util.convert(this.templatePath);
+        return util.convert(this.templatePath).replace(/^\[[^\]]+\]\s*/, '');
     }
 
     @once()

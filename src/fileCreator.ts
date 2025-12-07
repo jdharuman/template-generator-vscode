@@ -46,12 +46,15 @@ export class FileCreator {
 
     public async askTemplate(): Promise<Template> {
         let inputController = new InputController();
-        let { template, fileName } = await inputController.run(this.templates);
+        let { template, fileName, namespace } = await inputController.run(this.templates);
         if (!template) {
             return;
         }
 
         env.fileName = fileName;
+        if (namespace) {
+            env.fields.namespace = namespace;
+        }
         return template;
     }
 

@@ -11,11 +11,10 @@ import * as util from './util';
 import { once } from './decorators';
 
 export class TemplateFile {
-    public constructor(public readonly templatePath: string) {}
+    public constructor(public readonly templatePath: string) { }
 
-    @once()
     public get targetPath(): string {
-        return util.absTargetPath(util.convert(this.templatePath));
+        return util.absTargetPath(util.convert(this.templatePath).replace(/^\[[^\]]+\]\s*/, ''));
     }
 
     @once()

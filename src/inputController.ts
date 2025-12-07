@@ -11,6 +11,7 @@ import { Template } from './template';
 export interface IInput {
     template?: Template;
     fileName?: string;
+    namespace?: string;
 }
 
 const validateNameRegex = ((): RegExp => {
@@ -24,7 +25,7 @@ const validateNameRegex = ((): RegExp => {
 })();
 
 export class InputController {
-    public constructor() {}
+    public constructor() { }
 
     private async showTemplatePicker(templates: Template[]) {
         let template = await vscode.window.showQuickPick(templates, {
@@ -51,6 +52,14 @@ export class InputController {
         if (!fileName) {
             return {};
         }
-        return { template, fileName };
+
+        let namespace: string;
+        if (template.templatePath.includes('[C++]')) {
+            namespace = await vscode.window.showInputBox({
+                placeHolder: 'Input namespace (optional)',
+            });
+        }
+
+        return { template, fileName, namespace };
     }
 }
