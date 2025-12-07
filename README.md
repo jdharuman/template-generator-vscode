@@ -12,13 +12,14 @@ This extension helps in creating files and folders easily from defined templates
 ### Commands
 
 * `Files: New File from Template`
+* `Files: New File from Template (oadl)`
 * `Template: Open Templates Folder`
 
 ### Default templates path
 
-* Windows : %HOMEPATH%/.vscode/templates
-* Linux : ~/.vscode/templates
-* Mac : ~/.vscode/templates
+* Windows : %HOMEPATH%/.vscode/oadl_templates
+* Linux : ~/.vscode/oadl_templates
+* Mac : ~/.vscode/oadl_templates
 
 ### Custom fields
 
@@ -32,6 +33,12 @@ This extension helps in creating files and folders easily from defined templates
 * `{__snakeCaseName__}` : snake_case_file_name
 * `{__kebabCaseName__}` : kebab-case-file-name
 * `{__lowerDotCaseName__}` : lower.dot.case.file.name
+* `{__fileNamePrefix__}` : file name (same as name)
+* `{__fileNamePrefixSnakeUpper__}` : SNAKE_CASE_FILE_NAME
+* `{__namespaceStart__}` : namespace start (C++ only)
+* `{__namespaceEnd__}` : namespace end (C++ only)
+* `{__moduleNamePascal__}` : PascalCaseModuleName (C++ only)
+* `{__cppInheritInterface__}` : : public IModuleName (C++ only)
 * `{__delete__}` : empty string
 
 You can define the name displayed on the template selector, like:
